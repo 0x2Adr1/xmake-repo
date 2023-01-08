@@ -15,12 +15,17 @@ package("leveldb")
         add_syslinks("pthread")
     end
 
+    on_load(function (package)
+        package:add("deps", "snappy")
+    end)
+
     on_install("macosx", "linux", "windows", "mingw", function (package)
         local configs = {"-DLEVELDB_BUILD_TESTS=OFF", "-DLEVELDB_BUILD_BENCHMARKS=OFF"}
         table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:debug() and "Debug" or "Release"))
         table.insert(configs, "-DBUILD_SHARED_LIBS=" .. (package:config("shared") and "ON" or "OFF"))
-        local packagedeps = {"snappy"}
-        import("package.tools.cmake").install(package, configs, {packagedeps = packagedeps})
+        --local packagedeps = {"snappy"}
+        --import("package.tools.cmake").install(package, configs, {packagedeps = packagedeps})
+        import("package.tools.cmake").install(package, configs)
     end)
 
     on_test(function (package)
