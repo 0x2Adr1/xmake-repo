@@ -7,7 +7,7 @@ package("brpc")
     add_patches("1.3.0", path.join(os.scriptdir(), "patches", "1.3.0", "cmake.patch"), "a71bf46a4a6038a89da3ee9057dea5f452155a2da1f1c9bdcae7ecd0bb5e0510")
 
     add_deps("protobuf-cpp 3.19.4")
-    add_deps("leveldb", "gflags", "openssl", "libzip")
+    add_deps("snappy", "leveldb", "gflags", "openssl", "libzip")
     add_deps("cmake")
 
     if is_plat("macosx") then
